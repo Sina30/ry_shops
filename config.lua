@@ -25,17 +25,20 @@ RY.Locations = {
             jobs = {} -- Empty table means all jobs can access
         },
 
+        Ped = "Shopkeeper", -- Name des Peds (optional für Referenz)
+        PedModel = "a_m_m_farmer_01", -- Modell des Peds
+
         menuCoords = {
-			vec3(25.7, -1347.3, 29.49),
-	 		vec3(-3038.71, 585.9, 7.9),
-	 		vec3(-3241.47, 1001.14, 12.83),
-	 		vec3(1728.66, 6414.16, 35.03),
-	 		vec3(1697.99, 4924.4, 42.06),
-	 		vec3(1961.48, 3739.96, 32.34),
-	 		vec3(547.79, 2671.79, 42.15),
-	 		vec3(2679.25, 3280.12, 55.24),
-	 		vec3(2557.94, 382.05, 108.62),
-	 		vec3(373.55, 325.56, 103.56),
+		vec4(24.4866, -1347.6969, 29.4970, 270.3953),
+	 	vec4(-3038.71, 585.9, 7.9, 270.3953),
+	 	vec4(-3241.47, 1001.14, 12.83, 270.3953),
+	 	vec4(1728.66, 6414.16, 35.03, 270.3953),
+	 	vec4(1697.99, 4924.4, 42.06, 270.3953),
+	 	vec4(1961.48, 3739.96, 32.34, 270.3953),
+	 	vec4(547.79, 2671.79, 42.15, 270.3953),
+	 	vec4(2679.25, 3280.12, 55.24, 270.3953),
+	 	vec4(2557.94, 382.05, 108.62, 270.3953),
+	 	vec4(373.55, 325.56, 103.56, 270.3953),
         },
 
         -- OxTarget
@@ -121,9 +124,12 @@ RY.Locations = {
                 -- Add more jobs as needed
             }
         },
+
+        Ped = "Shopkeeper", -- Name des Peds (optional für Referenz)
+        PedModel = "a_m_m_farmer_01", -- Modell des Peds
         
         menuCoords = {
-            vector3(-1.8970, -1400.0311, 29.2717),
+            vec4(-1.8970, -1400.0311, 29.2717, 270.3953),
             -- more ify you want
         },
 
@@ -170,11 +176,13 @@ RY.Locations = {
                 -- Add more jobs as needed
             }
         },
+
+        Ped = "Shopkeeper", -- Name des Peds (optional für Referenz)
+        PedModel = "a_m_m_farmer_01", -- Modell des Peds
         
         menuCoords = {
-            vector3(-1.8970, -1400.0311, 29.2717),
-            vector3(-229.1096, -304.4604, 37.3673),
-			vector3(213.5103, -1508.6154, 29.2945)
+            vec4(-229.1096, -304.4604, 37.3673, 270.3953),
+	    vec4(213.5103, -1508.6154, 29.2945, 270.3953)
             -- more ify you want
         },
 
