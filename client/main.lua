@@ -22,10 +22,10 @@ if not (RY.Options.oxTarget) then
 
                     if canAccess then
                         for _, coords in pairs(v.menuCoords) do
-                            local distance = #(playerCoords - coords)
+                            local distance = Vdist(playerCoords.x, playerCoords.y, playerCoords.z, coords.x, coords.y, coords.z)
 
                             -- Check if player is close enough to open the menu
-                            if distance < 1 then
+                            if distance < 3 then
                                 anyNearby = true
                                 if not inMenu then
                                     -- DrawText3D(coords.x, coords.y, coords.z + 0.25, v.markersConfig.markerMenu.markerText)
@@ -69,6 +69,40 @@ if not (RY.Options.oxTarget) then
         end
     end)
 end
+
+-- Funktion zum Laden des Ped-Modells
+function LoadModel(model)
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Citizen.Wait(10)
+    end
+end
+
+-- Peds erstellen basierend auf menuCoords
+Citizen.CreateThread(function()
+    for shopIndex, shop in pairs(RY.Locations) do
+        -- Sicherstellen, dass die Config einen Ped definiert hat
+        if shop.Ped and shop.PedModel then
+            LoadModel(GetHashKey(shop.PedModel)) -- Ped-Modell laden
+
+            for coordIndex, coords in pairs(shop.menuCoords) do
+                local ped = CreatePed(
+                    4, -- Typ (Standard für Peds)
+                    GetHashKey(shop.PedModel), -- Modell aus der Config
+                    coords.x, coords.y, coords.z - 1.0, -- Position aus menuCoords
+                    coords.w or 0.0, -- Richtung (optional, falls w in menuCoords existiert)
+                    false, -- Keine Netzwerksteuerung
+                    true -- Dynamische Steuerung
+                )
+
+                -- Ped-Einstellungen
+                SetEntityInvincible(ped, true) -- Unverwundbar machen
+                FreezeEntityPosition(ped, true) -- Position einfrieren
+                SetBlockingOfNonTemporaryEvents(ped, true) -- Keine unnötigen Aktionen
+            end
+        end
+    end
+end)
 
 -- Setup targets and blips for each location
 for k, v in pairs(RY.Locations) do
