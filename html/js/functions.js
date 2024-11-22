@@ -333,12 +333,27 @@ function enterCheckoutMode() {
 
   // Loop through the button template and create a new button for each type
   btnTemplate.forEach(type => {
+    // Set icon based on the type
+    const icon = type === "blackmoney"
+      ? "cash-stack"
+      : type === "cash"
+        ? "cash-stack" // Icon für Cash
+        : "credit-card";    // Icon für Bank
+
+    // Set custom color based on the type
+    const color = type === "blackmoney"
+      ? "rgba(255, 84, 84, 0.7)"  // Farbe für blackmoney
+      : type === "cash"
+        ? "rgba(0, 204, 0, 0.7)"    // Farbe für Cash
+        : "rgba(255, 0, 0, 0.7)";                // Standardfarbe für Bank
+
     // Append the button template to the more-btns element
     $("#more-btns").append(`
       <button class="shopButtonCheckout-Btn vov slide-in-left infinite" id="${type}-${date}" style="width: 10%; height: 70px; display: none;">
-        <i class="bi bi-${type === "blackmoney" ? "cash-stack" : "credit-card"}" style="font-size: 1.7em; color: ${type === "blackmoney" ? "rgba(255, 84, 84, 0.7)" : "inherit"};"></i>
+        <i class="bi bi-${icon}" style="font-size: 1.7em; color: ${color};"></i>
       </button>
     `);
+
     // Show the button and add a click event to it
     $(`#${type}-${date}`).show().click(() => submitCheckout(type));
   });
