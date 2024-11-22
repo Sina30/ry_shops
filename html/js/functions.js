@@ -128,9 +128,9 @@ function setupShopItems(shopItems) {
         const shopItemID = `shopItem-${shopItem.itemID}`;
         shopItemsContainer.append(`
             <div class="shopItem vov fade-in infinite item-set" id="${shopItemID}">
-                <div class="shopItem-Header">${shopItem.itemPrice}$</div>
+                <div class="shopItem-Header">${shopItem.price}$</div>
                 <div class="shopItem-Image">
-                    <img src="nui://ox_inventory/web/images/${shopItem.itemName}.png" />
+                    <img src="nui://ox_inventory/web/images/${shopItem.name}.png" />
                 </div>
                 <div class="shopItem-Footer">${shopItem.itemLabel || 'Unbekanntes Item'}</div>
             </div>
@@ -159,7 +159,7 @@ function addToBasket(shopItem) {
   // If the item is already in the basket, increase the quantity
   if (searchShopItem) {
     searchShopItem.itemQuantity++;
-    searchShopItem.itemTotal += shopItem.itemPrice;
+    searchShopItem.itemTotal += shopItem.price;
 
     // Update the UI
     updateBasketItemUI(searchShopItem);
@@ -167,7 +167,7 @@ function addToBasket(shopItem) {
     // If the item is not in the basket, add it
     searchShopItem = Object.assign({}, shopItem, {
       itemQuantity: 1,
-      itemTotal: shopItem.itemPrice,
+      itemTotal: shopItem.price,
     });
 
     // Add the item to the basket
@@ -177,7 +177,7 @@ function addToBasket(shopItem) {
     appendBasketItemUI(shopItem);
   }
   // Update the total checkout price
-  updateTotalCheckout(shopItem.itemPrice);
+  updateTotalCheckout(shopItem.price);
 }
 
 /**
@@ -202,9 +202,9 @@ function appendBasketItemUI(shopItem) {
   const backgroundStyle = cache.useBlackMoney ? "rgba(255, 84, 84, 0.7)" : "rgba(56, 168, 5, 0.71)";
   $("#basketItems").append(`
     <div class="basketItem vov slide-in-up infinite" id="basketItem-${shopItem.itemID}">
-      <div class="basketItem-Image"><img src="nui://ox_inventory/web/images/${shopItem.itemName}.png" /></div>
+      <div class="basketItem-Image"><img src="nui://ox_inventory/web/images/${shopItem.name}.png" /></div>
       <div class="basketItem-header">${shopItem.itemLabel}<span id="basketItem-Quantity-${shopItem.itemID}" style="margin-left: 5px;">x1</span></div>
-      <div class="basketItem-footer"><span style="background: ${backgroundStyle}" id="basketItem-Price-${shopItem.itemID}">${shopItem.itemPrice}$</span></div>
+      <div class="basketItem-footer"><span style="background: ${backgroundStyle}" id="basketItem-Price-${shopItem.itemID}">${shopItem.price}$</span></div>
     </div>
   `);
 
@@ -266,7 +266,7 @@ function removeFromBasket(shopItem) {
     // Decrease the item quantity
     searchShopItem.itemQuantity--;
     // Decrease the item total price
-    searchShopItem.itemTotal -= shopItem.itemPrice;
+    searchShopItem.itemTotal -= shopItem.price;
     // Update the UI
     updateBasketItemUI(searchShopItem);
 
@@ -277,7 +277,7 @@ function removeFromBasket(shopItem) {
       $(`#basketItem-${shopItem.itemID}`).remove();
     }
     // Update the total checkout price
-    updateTotalCheckout(-shopItem.itemPrice);
+    updateTotalCheckout(-shopItem.price);
 
     // If the total checkout price is 0, show the "No products added" message
     if (cache.totalCheckout === 0) {
