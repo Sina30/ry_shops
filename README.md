@@ -1,3 +1,8 @@
+So it now reads everything from the ox_inventory - you don't have to 
+Specify more images or labels if you have a shop from the ox_inventory you can take it over with you. The only thing you have to do in the config is add the itemCategory
+
+removed: itemLabel, itemImage, itemPrice to price
+
 # RY_SHOPS
 A fully configurable store system with a modern and simple design.
 With the ease of creating infinite stores each with different items.
