@@ -30,21 +30,21 @@ function openMenu(lastLocation)
     -- Shop-Items vorbereiten
     shopItems = {}
     for k, v in pairs(RY.Locations[cache.lastLocation].shopItems) do
-        local itemData = allItems[v.itemName]
+        local itemData = allItems[v.name]
         if itemData then
             -- Dynamisches Label und Bild aus ox_inventory verwenden
             table.insert(shopItems, {
                 itemID = k,
-                itemName = v.itemName,
+                name = v.name,
                 itemLabel = itemData.label, -- Label aus ox_inventory
-                itemImage = v.itemName, -- Image aus ox_inventory
-                itemPrice = v.itemPrice,
+                itemImage = v.name, -- Image aus ox_inventory
+                price = v.price,
                 itemCategory = v.itemCategory,
                 itemQuantity = 1,
-                itemTotal = v.itemPrice
+                itemTotal = v.price
             })
         -- else
-        --     print(("Item '%s' nicht in ox_inventory gefunden."):format(v.itemName))
+        --     print(("Item '%s' nicht in ox_inventory gefunden."):format(v.name))
         end
     end
 
