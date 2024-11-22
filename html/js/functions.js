@@ -1,4 +1,3 @@
-
 const cache = {
   basket: [],
   shopItems: [],
@@ -121,38 +120,29 @@ function resetCategory() {
  * @param {object[]} shopItems - The shop items.
  */
 function setupShopItems(shopItems) {
-  const shopItemsContainer = $("#shopItems");
-  shopItemsContainer.html("");
-  cache.shopItems = shopItems;
+    const shopItemsContainer = $("#shopItems");
+    shopItemsContainer.html("");
+    cache.shopItems = shopItems;
 
-  // Loop through the shop items
-  shopItems.forEach((shopItem) => {
-    const shopItemID = `shopItem-${shopItem.itemID}`;
-    // Check if the item is already in the container
-    if (!$(`#${shopItemID}`).hasClass('item-set')) {
-      // Add the item to the container
-      shopItemsContainer.append(`
-        <div class="shopItem vov fade-in infinite item-set" id="${shopItemID}">
-          <div class="shopItem-Header">${shopItem.itemPrice}$</div>
-          <div class="shopItem-Image">
-            <img src="nui://ox_inventory/web/images/${shopItem.itemImage}.png" />
-          </div>
-          <div class="shopItem-Footer" style="margin-left: 40px; margin-top: 35px">${shopItem.itemLabel}</div>
-        </div>
-      `);
+    shopItems.forEach((shopItem) => {
+        const shopItemID = `shopItem-${shopItem.itemID}`;
+        shopItemsContainer.append(`
+            <div class="shopItem vov fade-in infinite item-set" id="${shopItemID}">
+                <div class="shopItem-Header">${shopItem.itemPrice}$</div>
+                <div class="shopItem-Image">
+                    <img src="nui://ox_inventory/web/images/${shopItem.itemName}.png" />
+                </div>
+                <div class="shopItem-Footer">${shopItem.itemLabel || 'Unbekanntes Item'}</div>
+            </div>
+        `);
 
-      // Add a click event to the item
-      $(`#${shopItemID}`).click(() => {
-        // Check if we are not in the checkout
-        if (!cache.inCheckout) {
-          // Add the item to the basket
-          addToBasket(shopItem);
-        }
-      });
-    }
-  });
+        $(`#${shopItemID}`).click(() => {
+            if (!cache.inCheckout) {
+                addToBasket(shopItem);
+            }
+        });
+    });
 }
-
 
 /**
  * Adds an item to the basket.
@@ -212,7 +202,7 @@ function appendBasketItemUI(shopItem) {
   const backgroundStyle = cache.useBlackMoney ? "rgba(255, 84, 84, 0.7)" : "rgba(56, 168, 5, 0.71)";
   $("#basketItems").append(`
     <div class="basketItem vov slide-in-up infinite" id="basketItem-${shopItem.itemID}">
-      <div class="basketItem-Image"><img src="nui://ox_inventory/web/images/${shopItem.itemImage}.png" /></div>
+      <div class="basketItem-Image"><img src="nui://ox_inventory/web/images/${shopItem.itemName}.png" /></div>
       <div class="basketItem-header">${shopItem.itemLabel}<span id="basketItem-Quantity-${shopItem.itemID}" style="margin-left: 5px;">x1</span></div>
       <div class="basketItem-footer"><span style="background: ${backgroundStyle}" id="basketItem-Price-${shopItem.itemID}">${shopItem.itemPrice}$</span></div>
     </div>
