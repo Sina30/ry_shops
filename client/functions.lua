@@ -23,21 +23,29 @@ function openMenu(lastLocation)
 
     -- cache the last location
     cache.lastLocation = lastLocation
-   
-    -- cache the shop's items
+
+    -- Abrufen aller Items aus ox_inventory
+    local allItems = exports.ox_inventory:Items()
+
+    -- Shop-Items vorbereiten
     shopItems = {}
-    for k,v in pairs(RY.Locations[cache.lastLocation].shopItems) do
-        -- create a new item with the item's id, name, label, image, price, category and quantity
-        table.insert(shopItems, {
-            itemID = k,
-            itemName = v.itemName,
-            itemLabel = v.itemLabel,
-            itemImage = v.itemImage,
-            itemPrice = v.itemPrice,
-            itemCategory = v.itemCategory,
-            itemQuantity = 1,
-            itemTotal = v.itemPrice
-        })
+    for k, v in pairs(RY.Locations[cache.lastLocation].shopItems) do
+        local itemData = allItems[v.itemName]
+        if itemData then
+            -- Dynamisches Label und Bild aus ox_inventory verwenden
+            table.insert(shopItems, {
+                itemID = k,
+                itemName = v.itemName,
+                itemLabel = itemData.label, -- Label aus ox_inventory
+                itemImage = v.itemName, -- Image aus ox_inventory
+                itemPrice = v.itemPrice,
+                itemCategory = v.itemCategory,
+                itemQuantity = 1,
+                itemTotal = v.itemPrice
+            })
+        -- else
+        --     print(("Item '%s' nicht in ox_inventory gefunden."):format(v.itemName))
+        end
     end
 
     -- blur the screen and send the data to the client to display
