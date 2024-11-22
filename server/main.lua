@@ -72,11 +72,11 @@ AddEventHandler('ry-shops:goToCheckout', function(totalPayment, basket, paymentT
         if paymentSuccess then
             if RY.Options.FrameWork == 'esx' then
                 for _, item in pairs(basket) do
-                    xPlayer.addInventoryItem(item.itemName, item.itemQuantity)
+                    xPlayer.addInventoryItem(item.name, item.itemQuantity)
                 end
             elseif RY.Options.FrameWork == 'qb' then
                 for _, item in pairs(basket) do
-                    xPlayer.Functions.AddItem(item.itemName, item.itemQuantity)
+                    xPlayer.Functions.AddItem(item.name, item.itemQuantity)
                 end
             end
             TriggerClientEvent('ry-shops:notification', _source, purchaseCompleted)
